@@ -5,12 +5,14 @@
 
 	<groupId>org.idempiere.fitnesse</groupId>
 	<artifactId>org.idempiere.fitnesse.parent</artifactId>
-	<version>10.0.0-SNAPSHOT</version>
+	<version>${revision}</version>
 	<packaging>pom</packaging>
 	<name>Maven parent project for iDempiere Fitnesse</name>
 
 	<properties>
-		<tycho.version>1.5.0</tycho.version>
+		<revision>11.0.0-SNAPSHOT</revision>
+		<jdk.version>17</jdk.version>
+		<tycho.version>4.0.4</tycho.version>
 		<tycho.extras.version>${tycho.version}</tycho.extras.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.dependency.version>3.1.1</maven.dependency.version>
@@ -20,6 +22,7 @@
                 <url.file.srv>https://raw.githubusercontent.com/muriloht/idempiere-fitnesse/master/files</url.file.srv>
 		<!-- default value of properties, use when run without profile -->
 		<idempiere.core.repository.url>file:///${basedir}/../../idempiere/org.idempiere.p2/target/repository</idempiere.core.repository.url>
+		<target.version>17</target.version>
 	</properties>
 
 	<build>
@@ -92,6 +95,9 @@
 					<artifactId>tycho-compiler-plugin</artifactId>
 					<version>${tycho.version}</version>
 					<configuration>
+					    <source>${target.version}</source>
+                    	<target>${target.version}</target>
+                    	<release>${target.version}</release>
 						<verbose>true</verbose>
 					</configuration>
 				</plugin>
@@ -206,9 +212,14 @@
 									<ws>win32</ws>
 									<arch>x86_64</arch>
 								</environment>
+								<environment>
+									<os>macosx</os>
+									<ws>cocoa</ws>
+									<arch>x86_64</arch>
+				            </environment>
 							</environments>
-							<executionEnvironmentDefault>JavaSE-11</executionEnvironmentDefault>
-							<executionEnvironment>JavaSE-11</executionEnvironment>
+							<executionEnvironmentDefault>JavaSE-${jdk.version}</executionEnvironmentDefault>
+			            	<executionEnvironment>JavaSE-${jdk.version}</executionEnvironment>
 						</configuration>
 					</plugin>
 				</plugins>
